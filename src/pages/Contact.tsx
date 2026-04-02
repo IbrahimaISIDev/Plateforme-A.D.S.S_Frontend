@@ -7,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Mail, Phone, MapPin, Send, MessageSquare, Globe, CheckCircle, Clock, User } from 'lucide-react';
 import { FadeIn, StaggerChildren } from '@/components/ui/transitions';
 import { useToast } from '@/components/ui/notifications';
-import { useAsyncState } from '@/hooks/useAsyncState';
+import { useCrudOperation } from '@/hooks/useAsyncState';
 import { cn } from '@/lib/utils';
 
 interface ContactForm {
@@ -33,7 +33,7 @@ export default function Contact() {
 
   const [errors, setErrors] = useState<Partial<ContactForm>>({});
 
-  const { execute: sendContact, loading } = useAsyncState(
+  const { execute: sendContact, isOperating: loading } = useCrudOperation(
     async () => {
       // Simuler l'envoi du formulaire
       await new Promise(resolve => setTimeout(resolve, 2000));
