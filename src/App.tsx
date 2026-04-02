@@ -3,6 +3,8 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './lib/trpc';
 
 import { AuthProvider } from './contexts/AuthContext';
+import { NotificationProvider as RealtimeNotificationProvider } from './components/ui/notifications-realtime';
+import { NotificationProvider as ToastProvider } from './components/ui/notifications';
 import { ErrorBoundary } from './components/ui/error-boundary';
 import { DashboardLayout } from './components/dashboard/DashboardLayout';
 import LandingPage from './views/LandingPage';
@@ -87,7 +89,11 @@ export default function App() {
         }}
       >
         <AuthProvider>
-          <Router />
+          <ToastProvider>
+            <RealtimeNotificationProvider>
+              <Router />
+            </RealtimeNotificationProvider>
+          </ToastProvider>
         </AuthProvider>
       </ErrorBoundary>
     </QueryClientProvider>
