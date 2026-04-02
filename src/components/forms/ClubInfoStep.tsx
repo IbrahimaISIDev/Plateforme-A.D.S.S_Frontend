@@ -155,6 +155,7 @@ export function ClubInfoStep({ formData, errors, onChange }: ClubInfoStepProps) 
             </div>
           )}
         </div>
-      </FadeIn>
-    );
+      </div>
+    </FadeIn>
+  );
 }

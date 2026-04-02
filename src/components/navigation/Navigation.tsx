@@ -107,7 +107,7 @@ export function NavigationBar({ items = defaultNavItems, brand, actions }: Navig
                 <p className="text-xs text-muted-foreground">{brand?.tagline}</p>
               )}
             </div>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
@@ -213,6 +213,6 @@ export function NavigationBar({ items = defaultNavItems, brand, actions }: Navig
             </div>
           )}
         </header>
-    </FadeIn>
+      </FadeIn>
   );
 }

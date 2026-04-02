@@ -158,6 +158,7 @@ export function MasterInstructorStep({ formData, errors, onChange }: MasterInstr
             />
           </div>
         </div>
-      </FadeIn>
-    );
+      </div>
+    </FadeIn>
+  );
 }

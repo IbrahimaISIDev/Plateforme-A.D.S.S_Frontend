@@ -76,7 +76,8 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   const markAllAsRead = useCallback(() => {
     setNotifications(prev => 
       prev.map(n => ({ ...n, read: true }))
-    }, []);
+    );
+  }, []);
 
   const clearNotification = useCallback((id: string) => {
     setNotifications(prev => prev.filter(n => n.id !== id));
@@ -272,7 +273,7 @@ function playNotificationSound(type: Notification['type']) {
         audio.src = 'data:audio/notification.mp3';
     }
     audio.volume = 0.5;
-    audio.play().catch(e => console.log('Audio playback failed:', e);
+    audio.play().catch(e => console.log('Audio playback failed:', e));
   } catch (e) {
     console.log('Audio not supported:', e);
   }

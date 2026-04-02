@@ -695,7 +695,8 @@ export default function SecretaryDashboardPage() {
               </div>
             </div>
         )}
-      </FadeIn>
+      </div>
+    </FadeIn>
     </SecretaryDashboard>
   );
 }
