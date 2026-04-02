@@ -212,7 +212,8 @@ export function NavigationBar({ items = defaultNavItems, brand, actions }: Navig
               </nav>
             </div>
           )}
-        </header>
-      </FadeIn>
+        </div>
+      </header>
+    </FadeIn>
   );
 }

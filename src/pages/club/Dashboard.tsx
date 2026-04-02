@@ -643,7 +643,7 @@ export default function ClubDashboardPage() {
               </div>
             </div>
           )}
-      </div>
+        </div>
     </FadeIn>
     </ClubDashboard>
   );
