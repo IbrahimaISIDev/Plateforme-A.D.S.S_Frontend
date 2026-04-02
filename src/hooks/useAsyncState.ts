@@ -19,7 +19,7 @@ export function useAsyncState<T>(
   options: UseAsyncStateOptions<T> = {}
 ) {
   const { initialData, onSuccess, onError, retryCount: maxRetries = 3 } = options
-  
+
   const [state, setState] = useState<AsyncState<T>>({
     data: initialData || null,
     loading: false,
@@ -29,7 +29,7 @@ export function useAsyncState<T>(
 
   const execute = useCallback(async (retryCount = 0) => {
     setState(prev => ({ ...prev, loading: true, error: null }))
-    
+
     try {
       const data = await asyncFunction()
       setState({
@@ -41,7 +41,7 @@ export function useAsyncState<T>(
       onSuccess?.(data)
     } catch (error) {
       const errorObj = error instanceof Error ? error : new Error(String(error))
-      
+
       if (retryCount < maxRetries) {
         // Retry with exponential backoff
         setTimeout(() => execute(retryCount + 1), Math.pow(2, retryCount) * 1000)
@@ -94,7 +94,7 @@ export function useCrudOperation<T, P = any>(
   const execute = useCallback(async (params?: P) => {
     setIsOperating(true)
     setError(null)
-    
+
     try {
       const result = await operation(params)
       setData(result)

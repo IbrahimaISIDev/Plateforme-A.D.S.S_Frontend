@@ -158,35 +158,29 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
 function NotificationCenterUI() {
   const { notifications, clearAll, settings } = useNotifications();
 
+  if (notifications.length === 0) return null;
+
   return (
     <div className={cn(
-      "fixed z-50 p-4 space-y-2 max-w-sm w-80",
-      settings.position === 'top-right' ? 'top-4 right-4' :
+      "fixed z-[100] p-4 space-y-2 max-w-sm w-80",
+      settings.position === 'top-right' ? 'top-20 right-4' :
         settings.position === 'bottom-right' ? 'bottom-4 right-4' :
-          settings.position === 'top-left' ? 'top-4 left-4' :
+          settings.position === 'top-left' ? 'top-20 left-4' :
             'bottom-4 left-4'
     )}>
       {notifications.map((notification) => (
         <NotificationItem key={notification.id} notification={notification} />
       ))}
-      {notifications.length === 0 && (
-        <div className="text-center text-muted-foreground text-sm p-4 bg-white/80 backdrop-blur rounded-lg shadow-sm border">
-          <Bell className="w-8 h-8 mx-auto mb-2 opacity-50" />
-          <p>Aucune notification</p>
-        </div>
-      )}
-      {notifications.length > 0 && (
-        <div className="flex justify-end p-2">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={clearAll}
-            className="text-xs"
-          >
-            Tout effacer
-          </Button>
-        </div>
-      )}
+      <div className="flex justify-end p-2">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={clearAll}
+          className="text-xs bg-white/50 backdrop-blur hover:bg-white/80"
+        >
+          Tout effacer
+        </Button>
+      </div>
     </div>
   );
 }
