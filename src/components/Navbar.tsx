@@ -1,7 +1,9 @@
 import { Button } from '@/components/ui/button';
-import { Link } from 'wouter';
+import { Link, useLocation } from 'wouter';
+import { cn } from '@/lib/utils';
 
 export function Navbar() {
+    const [location] = useLocation();
     return (
         <nav className="h-20 flex items-center justify-between px-12 bg-white sticky top-0 z-50">
             <div className="flex items-center space-x-2">
@@ -12,11 +14,14 @@ export function Navbar() {
             </div>
 
             <div className="hidden md:flex items-center space-x-8">
-                <a href="#accueil" className="text-sm font-medium text-secondary-blue">Accueil</a>
-                <a href="#features" className="text-sm font-medium text-muted-foreground hover:text-on-surface transition-colors">Fonctionnalités</a>
-                <a href="#pricing" className="text-sm font-medium text-muted-foreground hover:text-on-surface transition-colors">Tarifs</a>
+                <a href="/#accueil" className="text-sm font-medium text-secondary-blue">Accueil</a>
+                <a href="/#features" className="text-sm font-medium text-muted-foreground hover:text-on-surface transition-colors">Fonctionnalités</a>
+                <a href="/#pricing" className="text-sm font-medium text-muted-foreground hover:text-on-surface transition-colors">Tarifs</a>
                 <Link href="/contact">
-                    <a className="text-sm font-medium text-muted-foreground hover:text-on-surface transition-colors">Contact</a>
+                    <a className={cn(
+                        "text-sm font-medium transition-colors",
+                        location === "/contact" ? "text-secondary-blue font-bold" : "text-muted-foreground hover:text-on-surface"
+                    )}>Contact</a>
                 </Link>
             </div>
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Navbar } from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -129,6 +130,7 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Navbar />
       <main className="space-y-0">
         {/* Contact Hero */}
         <section className="pt-32 pb-20 px-6 sm:px-12 bg-surface-container-low/30">
