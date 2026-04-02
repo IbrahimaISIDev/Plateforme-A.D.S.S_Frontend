@@ -4,7 +4,7 @@ import { queryClient } from './lib/trpc';
 
 import { AuthProvider } from './contexts/AuthContext';
 import { ErrorBoundary } from './components/ui/error-boundary';
-import { DashboardLayout } from './components/DashboardLayout';
+import { DashboardLayout } from './components/dashboard/DashboardLayout';
 import LandingPage from './views/LandingPage';
 import AffiliationForm from './views/AffiliationForm';
 import AdminDashboard from './pages/AdminDashboard';
@@ -33,31 +33,31 @@ function Router() {
       <Route path="/register" component={RegisterPage} />
       <Route path="/login-help" component={LoginHelpPage} />
       <Route path="/dashboard">
-        <DashboardLayout>
+        <DashboardLayout role="admin">
           <Home />
         </DashboardLayout>
       </Route>
       {/* Auth routes could go here */}
       <Route path="/affiliations">
-        <DashboardLayout>
+        <DashboardLayout role="admin">
           <div>Affiliations Page (Draft)</div>
         </DashboardLayout>
       </Route>
       <Route path="/demandes/:id">
-        <DashboardLayout>
+        <DashboardLayout role="admin">
           <DemandDetails />
         </DashboardLayout>
       </Route>
       <Route path="/contact" component={Contact} />
       <Route path="/admin/dashboard">
-        <DashboardLayout>
+        <DashboardLayout role="admin">
           <AdminDashboard />
         </DashboardLayout>
       </Route>
       <Route path="/affiliations/new" component={AffiliationForm} />
       {/* Fallback */}
       <Route>
-        <DashboardLayout>
+        <DashboardLayout role="admin">
           <NotFound />
         </DashboardLayout>
       </Route>

@@ -6,57 +6,17 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useAuth } from '@/contexts/AuthContext';
-import { ArrowLeft, Shield, Users, User, Copy, Check } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [copiedId, setCopiedId] = useState<string | null>(null);
+
   const { login } = useAuth();
 
-  const mockUsers = [
-    {
-      id: 'admin',
-      role: 'Administrateur',
-      icon: Shield,
-      color: 'bg-red-100 text-red-800 border-red-200',
-      email: 'admin@adss.com',
-      password: 'admin123',
-      name: 'Ibrahima S. DIALLO'
-    },
-    {
-      id: 'club',
-      role: 'Gestionnaire de Club',
-      icon: Users,
-      color: 'bg-blue-100 text-blue-800 border-blue-200',
-      email: 'club@adss.com',
-      password: 'club123',
-      name: 'Jean Dupont'
-    },
-    {
-      id: 'member',
-      role: 'Membre',
-      icon: User,
-      color: 'bg-green-100 text-green-800 border-green-200',
-      email: 'member@adss.com',
-      password: 'member123',
-      name: 'Marie Martin'
-    }
-  ];
 
-  const copyCredentials = (userId: string, email: string, password: string) => {
-    const text = `Email: ${email}\nMot de passe: ${password}`;
-    navigator.clipboard.writeText(text);
-    setCopiedId(userId);
-    setTimeout(() => setCopiedId(null), 2000);
-  };
-
-  const fillCredentials = (email: string, password: string) => {
-    setEmail(email);
-    setPassword(password);
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -84,7 +44,7 @@ export default function LoginPage() {
                 <span>Retour à l'accueil</span>
               </Button>
             </Link>
-            
+
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-lg">A</span>
@@ -126,7 +86,7 @@ export default function LoginPage() {
                     <AlertDescription>{error}</AlertDescription>
                   </Alert>
                 )}
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
                   <Input
@@ -138,7 +98,7 @@ export default function LoginPage() {
                     required
                   />
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="password">Mot de passe</Label>
                   <Input
@@ -151,16 +111,16 @@ export default function LoginPage() {
                   />
                 </div>
               </CardContent>
-              
+
               <CardFooter className="flex flex-col space-y-4">
-                <Button 
-                  type="submit" 
-                  className="w-full" 
+                <Button
+                  type="submit"
+                  className="w-full"
                   disabled={isLoading}
                 >
                   {isLoading ? 'Connexion...' : 'Se connecter'}
                 </Button>
-                
+
                 <div className="text-center text-sm space-y-2">
                   <Link href="/forgot-password">
                     <a className="text-blue-600 hover:text-blue-500">

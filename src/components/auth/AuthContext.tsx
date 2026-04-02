@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 import { useToast } from '@/components/ui/notifications';
 
 interface User {
@@ -51,7 +51,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const token = localStorage.getItem('auth_token');
     const userData = localStorage.getItem('user_data');
-    
+
     if (token && userData) {
       try {
         const user = JSON.parse(userData);
@@ -101,7 +101,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         'manage_children_payments'
       ]
     };
-    
+
     return permissions[role as keyof typeof permissions] || [];
   };
 
@@ -271,11 +271,11 @@ interface ProtectedRouteProps {
   fallback?: ReactNode;
 }
 
-export function ProtectedRoute({ 
-  children, 
-  requiredRole, 
-  requiredPermission, 
-  fallback 
+export function ProtectedRoute({
+  children,
+  requiredRole,
+  requiredPermission,
+  fallback
 }: ProtectedRouteProps) {
   const { isAuthenticated, hasRole, hasPermission } = useAuth();
 
@@ -303,11 +303,11 @@ interface PermissionGateProps {
 
 export function PermissionGate({ permission, children, fallback }: PermissionGateProps) {
   const { hasPermission } = useAuth();
-  
+
   if (hasPermission(permission)) {
     return <>{children}</>;
   }
-  
+
   return <>{fallback || null}</>;
 }
 
@@ -320,10 +320,10 @@ interface RoleGateProps {
 
 export function RoleGate({ role, children, fallback }: RoleGateProps) {
   const { hasRole } = useAuth();
-  
+
   if (hasRole(role)) {
     return <>{children}</>;
   }
-  
+
   return <>{fallback || null}</>;
 }

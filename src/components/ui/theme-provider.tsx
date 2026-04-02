@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 import { Moon, Sun, Monitor } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+
 
 type Theme = 'light' | 'dark' | 'system';
 
@@ -30,7 +30,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       const root = window.document.documentElement;
       const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       const newResolvedTheme = theme === 'system' ? systemTheme : theme;
-      
+
       root.classList.remove('light', 'dark');
       root.classList.add(newResolvedTheme);
       setResolvedTheme(newResolvedTheme);
@@ -69,7 +69,7 @@ export function useTheme() {
 }
 
 export function ThemeToggle() {
-  const { theme, toggleTheme, resolvedTheme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
 
   const getIcon = () => {
     if (theme === 'system') return <Monitor className="w-4 h-4" />;
@@ -120,7 +120,7 @@ export function ThemeToggleCompact() {
 // Hook for theme-aware styles
 export function useThemeAware() {
   const { resolvedTheme } = useTheme();
-  
+
   const getColor = (light: string, dark: string) => {
     return resolvedTheme === 'dark' ? dark : light;
   };

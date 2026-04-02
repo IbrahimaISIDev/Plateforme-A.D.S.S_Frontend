@@ -5,33 +5,29 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
-    FileClock,
-    CheckCircle2,
-    CreditCard,
-    Calendar,
-    Eye,
-    Download,
-    Plus,
-    Printer,
-    ArrowRight,
-    ShieldCheck,
-    RefreshCw,
-    Info,
-    TrendingUp,
-    Award,
-    Bell,
-    Settings,
-    Mail,
-    Phone,
-    MapPin,
-    Clock,
-    AlertTriangle,
-    Users,
-    Building,
-    BarChart3,
-    FileText,
-    UserCheck,
-    Activity
+  FileClock,
+  CheckCircle2,
+  CreditCard,
+  Calendar,
+  Eye,
+  Download,
+  Plus,
+  Printer,
+  ArrowRight,
+  ShieldCheck,
+  RefreshCw,
+  Info,
+  TrendingUp,
+  Award,
+  Bell,
+  Settings,
+  Mail,
+  Phone,
+  MapPin,
+  Clock,
+  AlertTriangle,
+  Users,
+  Building
 } from 'lucide-react';
 import { FadeIn, StaggerChildren } from '@/components/ui/transitions';
 import { useToast } from '@/components/ui/notifications';
@@ -40,17 +36,7 @@ import { useResponsiveLayout } from '@/hooks/useResponsive';
 import { useAuth } from '@/contexts/AuthContext';
 import { cn } from '@/lib/utils';
 
-interface UserProfile {
-  name: string;
-  email: string;
-  phone: string;
-  club: string;
-  role: string;
-  memberSince: string;
-  rank: string;
-  nextRank: string;
-  progress: number;
-}
+
 
 export default function Home() {
   const { success, info } = useToast();
@@ -152,56 +138,56 @@ export default function Home() {
     switch (user.role) {
       case 'admin':
         return [
-          { 
-            title: 'TOTAL CLUBS', 
-            value: '24', 
-            icon: Building, 
-            color: 'text-purple-500', 
+          {
+            title: 'TOTAL CLUBS',
+            value: '24',
+            icon: Building,
+            color: 'text-purple-500',
             bg: 'bg-purple-50',
             trend: '+3 ce mois',
             trendUp: true
           },
-          { 
-            title: 'UTILISATEURS', 
-            value: '1,247', 
-            icon: Users, 
-            color: 'text-blue-500', 
+          {
+            title: 'UTILISATEURS',
+            value: '1,247',
+            icon: Users,
+            color: 'text-blue-500',
             bg: 'bg-blue-50',
             trend: '+127 ce mois',
             trendUp: true
           },
-          { 
-            title: 'LICENCES ACTIVES', 
-            value: '892', 
-            icon: CheckCircle2, 
-            color: 'text-green-500', 
+          {
+            title: 'LICENCES ACTIVES',
+            value: '892',
+            icon: CheckCircle2,
+            color: 'text-green-500',
             bg: 'bg-green-50',
             trend: '+45 vs 2023',
             trendUp: true
           },
-          { 
-            title: 'DEMANDES EN ATTENTE', 
-            value: '18', 
-            icon: FileClock, 
-            color: 'text-amber-500', 
+          {
+            title: 'DEMANDES EN ATTENTE',
+            value: '18',
+            icon: FileClock,
+            color: 'text-amber-500',
             bg: 'bg-amber-50',
             trend: '-5 cette semaine',
             trendUp: false
           },
-          { 
-            title: 'REVENUS ANNÉE', 
-            value: '12.5M', 
-            icon: CreditCard, 
-            color: 'text-indigo-500', 
+          {
+            title: 'REVENUS ANNÉE',
+            value: '12.5M',
+            icon: CreditCard,
+            color: 'text-indigo-500',
             bg: 'bg-indigo-50',
             trend: '+2.3M vs 2023',
             trendUp: true
           },
-          { 
-            title: 'TAUX CONVERSION', 
-            value: '87%', 
-            icon: TrendingUp, 
-            color: 'text-orange-500', 
+          {
+            title: 'TAUX CONVERSION',
+            value: '87%',
+            icon: TrendingUp,
+            color: 'text-orange-500',
             bg: 'bg-orange-50',
             trend: '+5% ce mois',
             trendUp: true
@@ -209,38 +195,38 @@ export default function Home() {
         ];
       case 'club_manager':
         return [
-          { 
-            title: 'MEMBRES ACTIFS', 
-            value: '45', 
-            icon: Users, 
-            color: 'text-blue-500', 
+          {
+            title: 'MEMBRES ACTIFS',
+            value: '45',
+            icon: Users,
+            color: 'text-blue-500',
             bg: 'bg-blue-50',
             trend: '+3 ce mois',
             trendUp: true
           },
-          { 
-            title: 'LICENCES VALIDÉES', 
-            value: '38', 
-            icon: CheckCircle2, 
-            color: 'text-green-500', 
+          {
+            title: 'LICENCES VALIDÉES',
+            value: '38',
+            icon: CheckCircle2,
+            color: 'text-green-500',
             bg: 'bg-green-50',
             trend: 'Stable',
             trendUp: null
           },
-          { 
-            title: 'DEMANDES EN COURS', 
-            value: '7', 
-            icon: FileClock, 
-            color: 'text-amber-500', 
+          {
+            title: 'DEMANDES EN COURS',
+            value: '7',
+            icon: FileClock,
+            color: 'text-amber-500',
             bg: 'bg-amber-50',
             trend: '+2 cette semaine',
             trendUp: true
           },
-          { 
-            title: 'PAIEMENTS REÇUS', 
-            value: '42', 
-            icon: CreditCard, 
-            color: 'text-purple-500', 
+          {
+            title: 'PAIEMENTS REÇUS',
+            value: '42',
+            icon: CreditCard,
+            color: 'text-purple-500',
             bg: 'bg-purple-50',
             trend: '+8 vs 2023',
             trendUp: true
@@ -248,56 +234,56 @@ export default function Home() {
         ];
       case 'member':
         return [
-          { 
-            title: 'DEMANDES EN COURS', 
-            value: '2', 
-            icon: FileClock, 
-            color: 'text-amber-500', 
+          {
+            title: 'DEMANDES EN COURS',
+            value: '2',
+            icon: FileClock,
+            color: 'text-amber-500',
             bg: 'bg-amber-50',
             trend: '+1 ce mois',
             trendUp: true
           },
-          { 
-            title: 'LICENCES ACTIVES', 
-            value: '3', 
-            icon: CheckCircle2, 
-            color: 'text-blue-500', 
+          {
+            title: 'LICENCES ACTIVES',
+            value: '3',
+            icon: CheckCircle2,
+            color: 'text-blue-500',
             bg: 'bg-blue-50',
             trend: 'Stable',
             trendUp: null
           },
-          { 
-            title: 'PAIEMENTS ANNÉE', 
-            value: '5', 
-            icon: CreditCard, 
-            color: 'text-green-500', 
+          {
+            title: 'PAIEMENTS ANNÉE',
+            value: '5',
+            icon: CreditCard,
+            color: 'text-green-500',
             bg: 'bg-green-50',
             trend: '+2 vs 2023',
             trendUp: true
           },
-          { 
-            title: 'PROCHAIN RENOUV', 
-            value: '12 Oct.', 
-            icon: Calendar, 
-            color: 'text-purple-500', 
+          {
+            title: 'PROCHAIN RENOUV',
+            value: '12 Oct.',
+            icon: Calendar,
+            color: 'text-purple-500',
             bg: 'bg-purple-50',
             trend: 'Dans 5 mois',
             trendUp: null
           },
-          { 
-            title: 'HEURES ENTRAÎNEMENT', 
-            value: '342h', 
-            icon: Clock, 
-            color: 'text-indigo-500', 
+          {
+            title: 'HEURES ENTRAÎNEMENT',
+            value: '342h',
+            icon: Clock,
+            color: 'text-indigo-500',
             bg: 'bg-indigo-50',
             trend: '+45h ce mois',
             trendUp: true
           },
-          { 
-            title: 'RANG PROGRESSION', 
-            value: '75%', 
-            icon: TrendingUp, 
-            color: 'text-orange-500', 
+          {
+            title: 'RANG PROGRESSION',
+            value: '75%',
+            icon: TrendingUp,
+            color: 'text-orange-500',
             bg: 'bg-orange-50',
             trend: 'En progression',
             trendUp: true
@@ -311,37 +297,37 @@ export default function Home() {
   const userStats = getUserStats();
 
   const quickActions = [
-    { 
-      title: "Nouvelle demande d'affiliation", 
-      description: "Enregistrez votre nouveau club à l'association.", 
-      icon: Plus, 
-      bg: "bg-orange-100", 
+    {
+      title: "Nouvelle demande d'affiliation",
+      description: "Enregistrez votre nouveau club à l'association.",
+      icon: Plus,
+      bg: "bg-orange-100",
       hover: "hover:bg-orange-200",
       action: () => info('Redirection', 'Page d\'affiliation bientôt disponible')
     },
-    { 
-      title: "Demander une licence", 
-      description: "Obtenez votre accréditation officielle de saison.", 
-      icon: ShieldCheck, 
-      bg: "bg-blue-600", 
-      text: "text-white", 
+    {
+      title: "Demander une licence",
+      description: "Obtenez votre accréditation officielle de saison.",
+      icon: ShieldCheck,
+      bg: "bg-blue-600",
+      text: "text-white",
       hover: "hover:bg-blue-700",
       action: () => info('Redirection', 'Formulaire de licence bientôt disponible')
     },
-    { 
-      title: "Renouveler ma licence", 
-      description: "Prolongez votre validité en quelques clics.", 
-      icon: RefreshCw, 
-      bg: "bg-green-600", 
-      text: "text-white", 
+    {
+      title: "Renouveler ma licence",
+      description: "Prolongez votre validité en quelques clics.",
+      icon: RefreshCw,
+      bg: "bg-green-600",
+      text: "text-white",
       hover: "hover:bg-green-700",
       action: () => info('Redirection', 'Renouvellement bientôt disponible')
     },
-    { 
-      title: "Voir mes documents", 
-      description: "Accédez à tous vos certificats et documents.", 
-      icon: Eye, 
-      bg: "bg-purple-100", 
+    {
+      title: "Voir mes documents",
+      description: "Accédez à tous vos certificats et documents.",
+      icon: Eye,
+      bg: "bg-purple-100",
       hover: "hover:bg-purple-200",
       action: () => success('Documents', 'Votre espace documents est en préparation')
     }
@@ -538,8 +524,8 @@ export default function Home() {
                         <p className="text-xs text-muted-foreground mt-1">{activity.date}</p>
                       </div>
                       <Badge className={getStatusColor(activity.status)}>
-                        {activity.status === 'completed' ? 'Terminé' : 
-                         activity.status === 'pending' ? 'En attente' : 'En cours'}
+                        {activity.status === 'completed' ? 'Terminé' :
+                          activity.status === 'pending' ? 'En attente' : 'En cours'}
                       </Badge>
                     </div>
                   ))}
@@ -597,8 +583,8 @@ export default function Home() {
                       <div className="text-right">
                         <p className="text-xs text-muted-foreground">{activity.date}</p>
                         <Badge className={getStatusColor(activity.status)}>
-                          {activity.status === 'completed' ? 'Terminé' : 
-                           activity.status === 'pending' ? 'En attente' : 'En cours'}
+                          {activity.status === 'completed' ? 'Terminé' :
+                            activity.status === 'pending' ? 'En attente' : 'En cours'}
                         </Badge>
                       </div>
                     </div>
@@ -622,8 +608,8 @@ export default function Home() {
                         <div className="flex-1">
                           <h4 className="font-black text-on-surface mb-1">{action.title}</h4>
                           <p className="text-sm text-muted-foreground mb-3">{action.description}</p>
-                          <Button 
-                            size="sm" 
+                          <Button
+                            size="sm"
                             className={cn(action.bg, action.text, action.hover, "rounded-lg")}
                             onClick={action.action}
                           >

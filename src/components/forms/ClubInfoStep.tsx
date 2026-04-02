@@ -1,9 +1,9 @@
-import React from 'react';
-import { Button } from '@/components/ui/button';
+
+
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { FadeIn } from '@/components/ui/transitions';
-import { Building, Mail, Phone } from 'lucide-react';
+import { Building } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface ClubInfoStepProps {
@@ -45,8 +45,8 @@ export function ClubInfoStep({ formData, errors, onChange }: ClubInfoStepProps) 
           <div className="space-y-4">
             <div>
               <label className="text-sm font-medium text-foreground">Type de club *</label>
-              <Select 
-                value={formData.clubType} 
+              <Select
+                value={formData.clubType}
                 onValueChange={(value) => onChange({ clubType: value as 'new' | 'existing' })}
               >
                 <SelectTrigger>

@@ -1,11 +1,11 @@
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+
 import { Skeleton } from '@/components/ui/skeleton';
 import { Spinner } from '@/components/ui/spinner';
 import { ApiError } from '@/components/ui/error-boundary';
 import { useAsyncState } from '@/hooks/useAsyncState';
-import { useResponsiveLayout } from '@/hooks/useResponsive';
+
 import { StaggerChildren, FadeIn } from '@/components/ui/transitions';
 import {
     AlertTriangle,
@@ -28,12 +28,12 @@ import { cn } from '@/lib/utils';
 const fetchDashboardData = async () => {
     // Simuler un délai réseau
     await new Promise(resolve => setTimeout(resolve, 1500));
-    
+
     // Simuler une erreur aléatoire pour démonstration
     if (Math.random() > 0.8) {
         throw new Error('Impossible de charger les données du tableau de bord');
     }
-    
+
     return {
         alerts: [
             { icon: AlertTriangle, title: "42 Licences expirent", subtitle: "Action requise avant le 15 du mois.", color: "text-red-500", bg: "bg-red-50", border: "border-red-500" },
@@ -64,7 +64,7 @@ export default function AdminDashboard() {
         }
     });
 
-    const { statsGridCols } = useResponsiveLayout();
+    const statsGridCols = "grid-cols-1 md:grid-cols-2 lg:grid-cols-4";
 
     if (loading) {
         return (
@@ -124,8 +124,8 @@ export default function AdminDashboard() {
     if (error) {
         return (
             <div className="space-y-6">
-                <ApiError 
-                    error={error} 
+                <ApiError
+                    error={error}
                     onRetry={retry}
                     className="max-w-2xl mx-auto mt-10"
                 />

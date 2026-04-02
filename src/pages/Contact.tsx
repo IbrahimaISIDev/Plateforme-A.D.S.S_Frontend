@@ -21,7 +21,7 @@ interface ContactForm {
 
 export default function Contact() {
   const { success, error, warning } = useToast();
-  
+
   const [formData, setFormData] = useState<ContactForm>({
     name: '',
     email: '',
@@ -30,23 +30,23 @@ export default function Contact() {
     message: '',
     type: 'general'
   });
-  
+
   const [errors, setErrors] = useState<Partial<ContactForm>>({});
 
-  const { execute: sendContact, loading, error: submitError, retry } = useAsyncState(
+  const { execute: sendContact, loading } = useAsyncState(
     async () => {
       // Simuler l'envoi du formulaire
       await new Promise(resolve => setTimeout(resolve, 2000));
-      
+
       // Simuler une erreur aléatoire pour démo
       if (Math.random() > 0.8) {
         throw new Error('Erreur technique temporaire. Veuillez réessayer.');
       }
-      
+
       return { success: true, id: Math.random().toString(36).substr(2, 9) };
     },
     {
-      onSuccess: (result) => {
+      onSuccess: () => {
         success('Message envoyé avec succès !', 'Nous vous répondrons sous 24h.');
         setFormData({
           name: '',
@@ -98,14 +98,14 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       warning('Formulaire incomplet', 'Veuillez corriger les erreurs.');
       return;
     }
 
     try {
-      await sendContact(formData);
+      await sendContact();
     } catch (err) {
       // L'erreur est déjà gérée par le hook
     }
@@ -258,8 +258,8 @@ export default function Contact() {
                               onClick={() => handleInputChange('type', type.value as ContactForm['type'])}
                               className={cn(
                                 "p-3 rounded-xl border-2 transition-all duration-200 flex flex-col items-center space-y-1",
-                                formData.type === type.value 
-                                  ? type.color + " border-current" 
+                                formData.type === type.value
+                                  ? type.color + " border-current"
                                   : "bg-surface-container-low/50 border-transparent hover:bg-surface-container"
                               )}
                             >
@@ -346,8 +346,8 @@ export default function Contact() {
                       </div>
 
                       {/* Submit Button */}
-                      <Button 
-                        type="submit" 
+                      <Button
+                        type="submit"
                         className="w-full h-12 text-lg font-bold"
                         disabled={loading}
                       >
@@ -366,7 +366,7 @@ export default function Contact() {
 
                       {/* Privacy Note */}
                       <p className="text-xs text-muted-foreground text-center">
-                        En envoyant ce message, vous acceptez notre politique de confidentialité. 
+                        En envoyant ce message, vous acceptez notre politique de confidentialité.
                         Vos données sont protégées et ne seront jamais partagées.
                       </p>
                     </form>

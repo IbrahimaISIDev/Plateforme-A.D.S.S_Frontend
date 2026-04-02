@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'wouter';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -7,25 +7,22 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { 
+import {
   DollarSign,
   TrendingUp,
   TrendingDown,
-  Calendar,
-  Download,
   Search,
-  Filter,
   Eye,
   CheckCircle,
   Clock,
   AlertTriangle,
   CreditCard,
   Banknote,
-  Users
+  Download,
+  Calendar
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { FadeIn, SlideIn } from '@/components/ui/transitions';
-import { useAuth } from '@/components/auth/AuthContext';
 import { TreasurerDashboard } from '@/components/dashboard/DashboardLayout';
 
 interface Payment {
@@ -98,7 +95,6 @@ const mockPayments: Payment[] = [
 ];
 
 export default function TreasurerPaymentsPage() {
-  const { hasPermission } = useAuth();
   const [activeTab, setActiveTab] = React.useState('overview');
   const [searchTerm, setSearchTerm] = React.useState('');
   const [statusFilter, setStatusFilter] = React.useState('all');
@@ -337,7 +333,7 @@ export default function TreasurerPaymentsPage() {
                     className="pl-10"
                   />
                 </div>
-                <Select value={statusFilter} onValueChange={setStatusFilter}>
+                <Select value={statusFilter} onValueChange={(v) => v && setStatusFilter(v)}>
                   <SelectTrigger className="w-full sm:w-40">
                     <SelectValue placeholder="Statut" />
                   </SelectTrigger>
@@ -349,7 +345,7 @@ export default function TreasurerPaymentsPage() {
                     <SelectItem value="refunded">Remboursés</SelectItem>
                   </SelectContent>
                 </Select>
-                <Select value={methodFilter} onValueChange={setMethodFilter}>
+                <Select value={methodFilter} onValueChange={(v) => v && setMethodFilter(v)}>
                   <SelectTrigger className="w-full sm:w-40">
                     <SelectValue placeholder="Méthode" />
                   </SelectTrigger>
@@ -362,7 +358,7 @@ export default function TreasurerPaymentsPage() {
                     <SelectItem value="transfer">Virement</SelectItem>
                   </SelectContent>
                 </Select>
-                <Select value={dateFilter} onValueChange={setDateFilter}>
+                <Select value={dateFilter} onValueChange={(v) => v && setDateFilter(v)}>
                   <SelectTrigger className="w-full sm:w-40">
                     <SelectValue placeholder="Période" />
                   </SelectTrigger>
@@ -466,7 +462,7 @@ export default function TreasurerPaymentsPage() {
                         const methodRevenue = mockPayments
                           .filter(p => p.method === method && p.status === 'completed')
                           .reduce((sum, p) => sum + p.amount, 0);
-                        
+
                         return (
                           <div key={method} className="flex items-center justify-between">
                             <div className="flex items-center space-x-2">
@@ -497,7 +493,7 @@ export default function TreasurerPaymentsPage() {
                         const typeRevenue = mockPayments
                           .filter(p => p.type === type && p.status === 'completed')
                           .reduce((sum, p) => sum + p.amount, 0);
-                        
+
                         return (
                           <div key={type} className="flex items-center justify-between">
                             <span>{getTypeName(type)}</span>

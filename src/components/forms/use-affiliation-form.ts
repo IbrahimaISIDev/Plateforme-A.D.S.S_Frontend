@@ -1,39 +1,5 @@
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Progress } from '@/components/ui/progress';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import {
-    Building2,
-    User,
-    FileText,
-    CheckCircle2,
-    XCircle,
-    HelpCircle,
-    Printer,
-    Download,
-    Clock,
-    MessageSquare,
-    Upload,
-    Calendar,
-    Phone,
-    Mail,
-    Shield,
-    FileCheck,
-    History,
-    Bell,
-    Eye,
-    Trash2,
-    Plus,
-    Minus,
-    Loader2
-} from 'lucide-react';
-import { FadeIn, SlideIn } from '@/components/ui/transitions';
+import { useState } from 'react';
 import { useToast } from '@/components/ui/notifications';
-import { useAsyncState } from '@/hooks/useAsyncState';
-import { cn } from '@/lib/utils';
 
 export interface AffiliationFormData {
   clubName: string;
@@ -102,11 +68,11 @@ export function useAffiliationForm(props: AffiliationFormProps) {
   const { success, error, warning } = useToast();
   const [currentStep, setCurrentStep] = useState(props.initialStep || 1);
   const [formData, setFormData] = useState<AffiliationFormData>(initialFormData);
-  const [errors, setErrors] = useState<Partial<AffiliationFormData>>({});
+  const [errors, setErrors] = useState<Record<string, string | boolean>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validateStep = (step: number): boolean => {
-    const newErrors: Partial<AffiliationFormData> = {};
+    const newErrors: Record<string, string | boolean> = {};
 
     switch (step) {
       case 1:
@@ -168,15 +134,15 @@ export function useAffiliationForm(props: AffiliationFormProps) {
     }
 
     setIsSubmitting(true);
-    
+
     try {
       await props.onSubmit?.(formData);
       success('Demande soumise avec succès !', 'Votre demande d\'affiliation a été enregistrée.');
-      
+
       // Reset form
       setFormData(initialFormData);
       setCurrentStep(1);
-      
+
     } catch (err) {
       error('Erreur de soumission', 'Une erreur est survenue lors de la soumission.');
     } finally {
@@ -212,7 +178,7 @@ export function useAffiliationForm(props: AffiliationFormProps) {
   const updateSchedule = (index: number, field: string, value: string) => {
     setFormData(prev => ({
       ...prev,
-      schedules: prev.schedules.map((schedule, i) => 
+      schedules: prev.schedules.map((schedule, i) =>
         i === index ? { ...schedule, [field]: value } : schedule
       )
     }));

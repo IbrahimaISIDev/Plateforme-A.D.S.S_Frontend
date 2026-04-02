@@ -6,37 +6,33 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import {
-    Building2,
-    User,
-    FileText,
-    CheckCircle2,
-    XCircle,
-    HelpCircle,
-    Printer,
-    Download,
-    Clock,
-    MessageSquare,
-    Lock,
-    Image as ImageIcon,
-    FileBox,
-    Share2,
-    Edit,
-    Send,
-    Eye,
-    AlertTriangle,
-    Calendar,
-    MapPin,
-    Phone,
-    Mail,
-    Shield,
-    FileCheck,
-    History,
-    Bell
+  Building2,
+  User,
+  FileText,
+  CheckCircle2,
+  XCircle,
+  HelpCircle,
+  Printer,
+  Download,
+  Clock,
+  MessageSquare,
+  Image as ImageIcon,
+  FileBox,
+  Share2,
+  Send,
+  Eye,
+  AlertTriangle,
+  Phone,
+  Mail,
+  Shield,
+  FileCheck,
+  History,
+  Bell
 } from 'lucide-react';
-import { FadeIn, StaggerChildren } from '@/components/ui/transitions';
+import { FadeIn } from '@/components/ui/transitions';
 import { useToast } from '@/components/ui/notifications';
 import { useAsyncState } from '@/hooks/useAsyncState';
-import { useResponsiveLayout } from '@/hooks/useResponsive';
+
 import { cn } from '@/lib/utils';
 
 interface Demand {
@@ -74,8 +70,7 @@ interface Demand {
 export default function DemandDetails() {
   const params = useParams();
   const demandId = params.id;
-  const { success, error, warning, info } = useToast();
-  const { isMobile } = useResponsiveLayout();
+  const { success, warning, info } = useToast();
   const [activeTab, setActiveTab] = useState('overview');
   const [showMessageDialog, setShowMessageDialog] = useState(false);
   const [message, setMessage] = useState('');
@@ -83,11 +78,11 @@ export default function DemandDetails() {
   // Mock demand data
   const { data: demand, loading, error: demandError, retry } = useAsyncState(async () => {
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     if (Math.random() > 0.9) {
       throw new Error('Demande non trouvée');
     }
-    
+
     return {
       id: demandId,
       type: 'affiliation',
@@ -137,10 +132,10 @@ export default function DemandDetails() {
 
   const handleSendMessage = async () => {
     if (!message.trim()) return;
-    
+
     // Simuler l'envoi du message
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     success('Message envoyé', 'Votre message a été envoyé avec succès.');
     setMessage('');
     setShowMessageDialog(false);
@@ -225,7 +220,7 @@ export default function DemandDetails() {
               {demand.submissionDate} • Dernière mise à jour: {demand.lastUpdate}
             </p>
           </div>
-          
+
           <div className="flex items-center space-x-3">
             <Button variant="outline" className="h-10">
               <Printer className="w-4 h-4 mr-2" />
@@ -236,7 +231,7 @@ export default function DemandDetails() {
               Exporter
             </Button>
             <Dialog open={showMessageDialog} onOpenChange={setShowMessageDialog}>
-              <DialogTrigger asChild>
+              <DialogTrigger>
                 <Button variant="outline" className="h-10">
                   <MessageSquare className="w-4 h-4 mr-2" />
                   Contacter
@@ -432,15 +427,15 @@ export default function DemandDetails() {
                         <div className={cn(
                           "w-10 h-10 rounded-full flex items-center justify-center",
                           step.status === 'completed' ? 'bg-green-100' :
-                          step.status === 'active' ? 'bg-blue-100' :
-                          'bg-gray-100'
+                            step.status === 'active' ? 'bg-blue-100' :
+                              'bg-gray-100'
                         )}>
-                          {React.createElement(getStatusIcon(step.status), { 
+                          {React.createElement(getStatusIcon(step.status), {
                             className: cn(
                               "w-5 h-5",
                               step.status === 'completed' ? 'text-green-600' :
-                              step.status === 'active' ? 'text-blue-600' :
-                              'text-gray-400'
+                                step.status === 'active' ? 'text-blue-600' :
+                                  'text-gray-400'
                             )
                           })}
                         </div>
@@ -467,16 +462,16 @@ export default function DemandDetails() {
                   <h3 className="text-lg font-black text-on-surface">Décision</h3>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <Button 
-                    className="w-full" 
+                  <Button
+                    className="w-full"
                     onClick={handleApprove}
                     disabled={demand.status === 'approved' || demand.status === 'rejected'}
                   >
                     <CheckCircle2 className="w-4 h-4 mr-2" />
                     Approuver la demande
                   </Button>
-                  <Button 
-                    variant="destructive" 
+                  <Button
+                    variant="destructive"
                     className="w-full"
                     onClick={handleReject}
                     disabled={demand.status === 'approved' || demand.status === 'rejected'}

@@ -61,16 +61,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const login = async (email: string, password: string) => {
         setIsLoading(true);
-        
+
         // Simulation d'un délai réseau
         await new Promise(resolve => setTimeout(resolve, 1000));
-        
+
         const mockUser = MOCK_USERS.find(u => u.email === email && u.password === password);
-        
+
         if (mockUser) {
             const { password, ...userWithoutPassword } = mockUser;
             setUser(userWithoutPassword);
-            
+
             // Redirection selon le rôle
             switch (mockUser.role) {
                 case 'admin':
@@ -86,21 +86,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         } else {
             throw new Error('Email ou mot de passe incorrect');
         }
-        
+
         setIsLoading(false);
     };
 
-    const register = async (name: string, email: string, password: string) => {
+    const register = async (name: string, email: string, _password: string) => {
         setIsLoading(true);
-        
+
         // Simulation d'un délai réseau
         await new Promise(resolve => setTimeout(resolve, 1000));
-        
+
         // Vérifier si l'email existe déjà
         if (MOCK_USERS.some(u => u.email === email)) {
             throw new Error('Cet email est déjà utilisé');
         }
-        
+
         // Créer un nouvel utilisateur (en pratique, on l'ajouterait à la base de données)
         const newUser: User = {
             id: Date.now().toString(),
@@ -108,7 +108,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             email,
             role: 'member',
         };
-        
+
         setUser(newUser);
         setLocation('/dashboard');
         setIsLoading(false);
