@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react';
-import { Bell, X, CheckCircle2, AlertTriangle, Info, AlertCircle, XCircle, Eye } from 'lucide-react';
+import { X, CheckCircle2, AlertTriangle, Info, AlertCircle, XCircle, Eye } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
