@@ -1,48 +1,96 @@
-import { Rocket, ShieldCheck, CreditCard } from 'lucide-react'
+import { Route, Switch } from 'wouter';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from './lib/trpc';
 
-function App() {
+import { AuthProvider } from './contexts/AuthContext';
+import { ErrorBoundary } from './components/ui/error-boundary';
+import { DashboardLayout } from './components/DashboardLayout';
+import LandingPage from './views/LandingPage';
+import AffiliationForm from './views/AffiliationForm';
+import AdminDashboard from './pages/AdminDashboard';
+import DemandDetails from './pages/DemandDetails';
+import Contact from './pages/Contact';
+import Home from './pages/Home';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import LoginHelpPage from './pages/LoginHelpPage';
+
+// Dummy component for not found
+function NotFound() {
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
-      <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 space-y-6 border border-gray-100">
-        <div className="flex justify-center">
-          <div className="p-3 bg-blue-50 rounded-full">
-            <Rocket className="w-8 h-8 text-blue-600" />
-          </div>
-        </div>
-
-        <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold text-gray-900 tracking-tight">ADSS Platform</h1>
-          <p className="text-gray-500">Project Initialized & Ready for Development</p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-4 pt-4">
-          <div className="flex items-center space-x-3 p-4 bg-gray-50 rounded-lg">
-            <ShieldCheck className="w-5 h-5 text-green-500" />
-            <span className="text-sm font-medium text-gray-700">React 19 + TypeScript 5</span>
-          </div>
-          <div className="flex items-center space-x-3 p-4 bg-gray-50 rounded-lg">
-            <div className="w-5 h-5 bg-blue-400 rounded-sm flex items-center justify-center text-[10px] text-white font-bold">T4</div>
-            <span className="text-sm font-medium text-gray-700">Tailwind CSS 4 Configured</span>
-          </div>
-          <div className="flex items-center space-x-3 p-4 bg-gray-50 rounded-lg">
-            <CreditCard className="w-5 h-5 text-purple-500" />
-            <span className="text-sm font-medium text-gray-700">Dependencies Installed (tRPC, Wouter)</span>
-          </div>
-        </div>
-
-        <button
-          className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-blue-200 active:scale-[0.98]"
-          onClick={() => alert('Frontend Ready!')}
-        >
-          Explore Dashboard
-        </button>
-      </div>
-
-      <p className="mt-8 text-sm text-gray-400">
-        Association Disciples Shaolin Si Sénégal
-      </p>
+    <div className="flex flex-col items-center justify-center p-12">
+      <h1 className="text-4xl font-bold">404</h1>
+      <p className="text-gray-500 mt-2">Page non trouvée</p>
     </div>
-  )
+  );
 }
 
-export default App
+function Router() {
+  return (
+    <Switch>
+      <Route path="/" component={LandingPage} />
+      <Route path="/login" component={LoginPage} />
+      <Route path="/register" component={RegisterPage} />
+      <Route path="/login-help" component={LoginHelpPage} />
+      <Route path="/dashboard">
+        <DashboardLayout>
+          <Home />
+        </DashboardLayout>
+      </Route>
+      {/* Auth routes could go here */}
+      <Route path="/affiliations">
+        <DashboardLayout>
+          <div>Affiliations Page (Draft)</div>
+        </DashboardLayout>
+      </Route>
+      <Route path="/demandes/:id">
+        <DashboardLayout>
+          <DemandDetails />
+        </DashboardLayout>
+      </Route>
+      <Route path="/contact" component={Contact} />
+      <Route path="/admin/dashboard">
+        <DashboardLayout>
+          <AdminDashboard />
+        </DashboardLayout>
+      </Route>
+      <Route path="/affiliations/new" component={AffiliationForm} />
+      {/* Fallback */}
+      <Route>
+        <DashboardLayout>
+          <NotFound />
+        </DashboardLayout>
+      </Route>
+    </Switch>
+  );
+}
+
+export default function App() {
+  // For now, we skip tRPC provider until backend is ready
+  // const [trpcClient] = useState(() =>
+  //   trpc.createClient({
+  //     links: [
+  //       httpBatchLink({
+  //         url: '/api/trpc',
+  //       }),
+  //     ],
+  //   })
+  // );
+
+  return (
+    // <trpc.Provider client={trpcClient} queryClient={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <ErrorBoundary
+        onError={(error, errorInfo) => {
+          console.error('Application error:', error, errorInfo);
+          // Ici vous pourriez envoyer l'erreur à un service de monitoring
+        }}
+      >
+        <AuthProvider>
+          <Router />
+        </AuthProvider>
+      </ErrorBoundary>
+    </QueryClientProvider>
+    // </trpc.Provider>
+  );
+}
